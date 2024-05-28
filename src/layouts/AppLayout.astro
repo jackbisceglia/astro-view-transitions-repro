@@ -1,0 +1,16 @@
+---
+import Navbar from "../components/Navbar.astro";
+---
+
+<body class="flex flex-col min-h-screen relative">
+  <div
+    class="absolute inset-0 -z-10 h-full w-full bg-transparent bg-[linear-gradient(to_right,#f4f4f4_1px,transparent_1px),linear-gradient(to_bottom,#f4f4f4_1px,transparent_1px)] bg-[size:5rem_2.25rem]"
+  >
+  </div>
+  <Navbar />
+  <main
+    class="flex flex-col max-w-screen-lg w-full px-4 py-8 mx-auto text-center gap-1"
+  >
+    <slot />
+  </main>
+</body>

@@ -1,0 +1,51 @@
+---
+import { ViewTransitions, fade } from "astro:transitions";
+import ContentLayout from "./ContentLayout.astro";
+import AppLayout from "./AppLayout.astro";
+
+interface Props {
+  title: string;
+  type: "content" | "app";
+}
+
+const isProd = import.meta.env.PROD;
+const { title, type } = Astro.props;
+
+/*
+    the philosophy is to let each tier of layout handle as much as possible.
+    ie. only split when there's no more overlap
+    eg. here, top level meta/styles can be grouped, but body tags differ btwn site/content pages (eg. bg)
+  **/
+
+const DynamicLayout = {
+  content: ContentLayout,
+  app: AppLayout,
+}[type];
+
+const metadata = {
+  title: isProd ? title : `(dev) ${title}`,
+  icon: isProd ? "/favicon.ico" : "/dev.favicon.ico",
+};
+---
+
+<!doctype html>
+<html lang="en" transition:animate="slide">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={metadata.icon} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{metadata.title}</title>
+    <ViewTransitions />
+  </head>
+  <DynamicLayout>
+    <slot />
+  </DynamicLayout>
+  <style is:global>
+    @import url("https://api.fontshare.com/v2/css?f[]=azeret-mono@200,300,400,500,600,700,800,900&display=swap");
+    .c-position {
+      position: relative;
+    }
+  </style>
+</html>

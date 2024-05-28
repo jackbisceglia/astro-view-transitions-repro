@@ -1,0 +1,14 @@
+---
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<body class=`flex flex-col min-h-screen relative`>
+  <div
+    class="absolute inset-0 -z-10 h-full w-full bg-transparent bg-[linear-gradient(to_right,#f4f4f4_1px,transparent_1px),linear-gradient(to_bottom,#f4f4f4_1px,transparent_1px)] bg-[size:5rem_2.25rem]"
+  >
+  </div>
+  <Navbar />
+  <slot />
+  <Footer />
+</body>
